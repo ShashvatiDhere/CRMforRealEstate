@@ -1,4 +1,4 @@
-# RealEstateCRM OTP Project
+# RealEstateCRM
 
 ## Features
 - Agent self-registration

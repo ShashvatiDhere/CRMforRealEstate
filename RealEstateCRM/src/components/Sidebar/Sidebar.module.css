@@ -1,0 +1,115 @@
+.sidebar {
+  width: 260px;
+  height: 100vh;
+  background-color: var(--brand-primary); /* Deep charcoal */
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  z-index: 10;
+  color: white;
+}
+
+.logoContainer {
+  height: 80px;
+  display: flex;
+  align-items: center;
+  padding: 0 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.logoIcon {
+  width: 28px;
+  height: 28px;
+  background-color: var(--accent-gold);
+  border-radius: var(--radius-sm);
+  margin-right: 0.75rem;
+}
+
+.logoText {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: white;
+  letter-spacing: -0.5px;
+}
+
+.logoText span {
+  color: var(--accent-gold);
+}
+
+.roleBadge {
+  margin: 1.5rem 1.5rem 0.5rem;
+  padding: 0.4rem 0.75rem;
+  background-color: rgba(207, 163, 97, 0.1);
+  color: var(--accent-gold);
+  font-size: 0.7rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-align: center;
+}
+
+.nav {
+  padding: 1rem 1rem;
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+.nav ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.navLink {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md);
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 400;
+  transition: all 0.2s ease;
+}
+
+.navLink:hover {
+  color: white;
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.navLink.active {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  font-weight: 500;
+}
+
+.navLink span {
+  margin-left: 0.75rem;
+  font-size: 0.9rem;
+}
+
+.bottomMenu {
+  padding: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.logoutBtn {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.9rem;
+  font-weight: 400;
+  transition: all 0.2s ease;
+}
+
+.logoutBtn:hover {
+  color: white;
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.logoutBtn span {
+  margin-left: 0.75rem;
+}

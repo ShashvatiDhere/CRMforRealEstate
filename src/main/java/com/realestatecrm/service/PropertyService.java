@@ -1,5 +1,6 @@
 package com.realestatecrm.service;
 
+import com.realestatecrm.dto.MapLocationResponse;
 import com.realestatecrm.dto.PropertyRequest;
 import com.realestatecrm.entity.Property;
 import com.realestatecrm.entity.PropertyStatus;
@@ -16,13 +17,20 @@ import java.util.List;
 public class PropertyService {
 
     private final PropertyRepository propertyRepository;
+    private final GoogleMapService googleMapService;
 
     public Property createProperty(PropertyRequest request) {
+
+        MapLocationResponse mapLocation =
+                googleMapService.getLocationFromAddress(request.getLocation());
 
         Property property = Property.builder()
                 .title(request.getTitle())
                 .propertyType(PropertyType.valueOf(request.getPropertyType().toUpperCase()))
                 .location(request.getLocation())
+                .formattedAddress(mapLocation.getFormattedAddress())
+                .latitude(mapLocation.getLatitude())
+                .longitude(mapLocation.getLongitude())
                 .price(request.getPrice())
                 .bhk(request.getBhk())
                 .areaSqft(request.getAreaSqft())
@@ -47,9 +55,15 @@ public class PropertyService {
 
         Property property = getPropertyById(id);
 
+        MapLocationResponse mapLocation =
+                googleMapService.getLocationFromAddress(request.getLocation());
+
         property.setTitle(request.getTitle());
         property.setPropertyType(PropertyType.valueOf(request.getPropertyType().toUpperCase()));
         property.setLocation(request.getLocation());
+        property.setFormattedAddress(mapLocation.getFormattedAddress());
+        property.setLatitude(mapLocation.getLatitude());
+        property.setLongitude(mapLocation.getLongitude());
         property.setPrice(request.getPrice());
         property.setBhk(request.getBhk());
         property.setAreaSqft(request.getAreaSqft());

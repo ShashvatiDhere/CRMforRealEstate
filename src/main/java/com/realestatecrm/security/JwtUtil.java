@@ -2,8 +2,8 @@ package com.realestatecrm.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -22,8 +22,19 @@ public class JwtUtil {
     @Value("${jwt.expiration}")
     private long jwtExpiration;
 
-    private SecretKey getSignKey() {
-        return Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
+    private SecretKey signingKey;
+
+    @PostConstruct
+    public void init() {
+        if (secret == null || secret.trim().isEmpty()) {
+            throw new RuntimeException("JWT secret is missing in application.properties");
+        }
+
+        if (secret.getBytes(StandardCharsets.UTF_8).length < 32) {
+            throw new RuntimeException("JWT secret must be at least 32 characters long");
+        }
+
+        this.signingKey = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
     }
 
     public String extractUsername(String token) {
@@ -37,7 +48,7 @@ public class JwtUtil {
 
     private Claims extractAllClaims(String token) {
         return Jwts.parser()
-                .verifyWith(getSignKey())
+                .verifyWith(signingKey)
                 .build()
                 .parseSignedClaims(token)
                 .getPayload();
@@ -51,7 +62,7 @@ public class JwtUtil {
                 .subject(userDetails.getUsername())
                 .issuedAt(now)
                 .expiration(expiry)
-                .signWith(getSignKey(), SignatureAlgorithm.HS256)
+                .signWith(signingKey)
                 .compact();
     }
 

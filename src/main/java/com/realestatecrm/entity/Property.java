@@ -26,12 +26,19 @@ public class Property {
 
     private String location;
 
+    private String formattedAddress;
+
+    private Double latitude;
+
+    private Double longitude;
+
     private BigDecimal price;
 
     private Integer bhk;
 
     private Double areaSqft;
-    private String imageUrl; // img
+
+    private String imageUrl;
 
     @Column(columnDefinition = "TEXT")
     private String description;
